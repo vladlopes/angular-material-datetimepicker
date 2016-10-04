@@ -78,8 +78,8 @@
         this.locale = localeString;
       };
     })
-    .directive('mdcDatetimePicker', ['$mdDialog',
-      function ($mdDialog) {
+    .directive('mdcDatetimePicker', ['$mdDialog','mdcDatetimePickerDefaultLocale',
+      function ($mdDialog, mdcDatetimePickerDefaultLocale) {
 
         return {
           restrict: 'A',
@@ -109,6 +109,9 @@
                 scope.format = 'HH:mm';
               }
             }
+            if (!scope.lang) {
+              scope.lang = mdcDatetimePickerDefaultLocale;
+            }
 
             if (angular.isString(scope.currentDate) && scope.currentDate !== '') {
               scope.currentDate = moment(scope.currentDate, scope.format);
@@ -119,7 +122,7 @@
                 if (typeof value === 'undefined') {
                   return;
                 }
-                var m = moment(value);
+                var m = moment(value).locale(scope.lang);
                 return m.isValid() ? m.format(scope.format) : '';
               });
             }
