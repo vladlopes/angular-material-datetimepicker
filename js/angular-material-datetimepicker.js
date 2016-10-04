@@ -596,7 +596,7 @@
               calendar.toDay = function (i) {
                 return moment(parseInt(i), "d")
                   .locale(picker.params.lang)
-                  .format("dd")
+                  .format("ddd")
                   .substring(0, 1);
               };
 
